@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  Platform,
-  StatusBar,
-  StyleSheet,
-  View,
-  KeyboardAvoidingView
-} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import { colors, colorsVariables } from './constants/Colors';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import LoginPage from './screens/LoginPage';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+
+import { routes } from './constants/Routes';
+import { colorsVariables } from './constants/Colors';
 
 const theme = {
   ...DefaultTheme,
@@ -27,6 +23,14 @@ export default class App extends React.Component {
   };
 
   render() {
+    const stackConfig = {
+      headerMode: 'none',
+      navigationOptions: {
+        headerVisible: false,
+      }
+    };
+    const AppNavigator = createAppContainer(createStackNavigator(routes, stackConfig));
+
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -39,13 +43,7 @@ export default class App extends React.Component {
       return (
         <PaperProvider theme={theme}>
           <KeyboardAvoidingView style={styles.container} behavior="padding">
-            {true
-              ? (
-                <LoginPage />
-              )
-              : (
-                <View />
-              )}
+            <AppNavigator />
           </KeyboardAvoidingView>
         </PaperProvider>
       );

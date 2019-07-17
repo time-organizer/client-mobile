@@ -9,6 +9,7 @@ const MyTextInput = ({ onChange, value, styles, label }) => (
     onChangeText={onChange}
     style={{
       backgroundColor: colorsVariables.bgColor,
+      borderRadius: 4,
       ...styles,
     }}
     value={value}
