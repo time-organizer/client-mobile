@@ -1,11 +1,37 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import BoardListScreen from './BoardListScreen';
+import APIService from '../../services/APIService';
 
 class BoardListScreenContainer extends Component {
+  state = {
+    isFetching: false,
+    boardsList: [],
+
+  };
+
+  componentDidMount() {
+    this.fetchBoards();
+  }
+
+  fetchBoards = () => {
+    APIService.get('/api/boards')
+      .then(response => {
+        console.log(response.data)
+        this.setState({ boards: response.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  };
+
   render() {
+    const { isFetching, boards } = this.state;
+
     return (
-      <BoardListScreen />
+      <BoardListScreen
+        isFetching={isFetching}
+        boards={boards}
+      />
     );
   }
 }

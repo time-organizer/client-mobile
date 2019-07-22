@@ -10,6 +10,7 @@ class LoginScreenContainer extends Component {
     this.state = {
       email: '',
       password: '',
+      errored: false,
     }
   }
 
@@ -36,12 +37,17 @@ class LoginScreenContainer extends Component {
           });
       })
       .catch((error) => {
+        this.showDialog();
         console.warn(error);
       });
   };
 
+  showDialog = () => this.setState({ errored: true });
+
+  hideDialog = () => this.setState({ errored: false });
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, errored } = this.state;
 
     return (
       <LoginScreen
@@ -49,6 +55,8 @@ class LoginScreenContainer extends Component {
         password={password}
         handleChange={this.handleChange}
         submit={this.submit}
+        hideDialog={this.hideDialog}
+        errored={errored}
       />
     );
   }

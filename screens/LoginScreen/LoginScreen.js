@@ -4,12 +4,12 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Paragraph, Dialog, Portal } from 'react-native-paper';
 
 import { MyTextInput } from '../../components';
 import { colorsVariables } from '../../constants/Colors';
 
-const LoginScreen = ({ email, password, handleChange, submit }) => (
+const LoginScreen = ({ email, password, handleChange, submit, errored, hideDialog }) => (
   <View style={styles.homeContainer}>
     <View style={styles.logoContainer}>
       <Image
@@ -41,6 +41,29 @@ const LoginScreen = ({ email, password, handleChange, submit }) => (
         </Button>
       </View>
     </View>
+
+    <Portal>
+      <Dialog
+        visible={errored}
+        onDismiss={hideDialog}
+      >
+        <Dialog.Title>Authentication error</Dialog.Title>
+        <Dialog.Content>
+          <Paragraph>
+            You have inserted wrong credentials. Please try again
+          </Paragraph>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button
+            mode="contained"
+            onPress={hideDialog}
+            style={styles.button}
+          >
+            Ok
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
   </View>
 );
 

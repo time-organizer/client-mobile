@@ -1,9 +1,11 @@
 /* eslint-env browser */
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
+import decode from 'jwt-decode';
 
 const {
-  REACT_APP_DATA_FLOW_URL = 'http://192.168.0.59:3001',
+  // REACT_APP_DATA_FLOW_URL = 'http://192.168.0.59:3001',
+  REACT_APP_DATA_FLOW_URL = 'https://time-organizer-data-flow.herokuapp.com',
 } = process.env;
 
 const getServiceUrl = (url) => {
@@ -16,6 +18,13 @@ const getServiceUrl = (url) => {
 
 
 const APIService = {
+  isTokenExpired: token => decode(token).exp < (Date.now() / 1000),
+
+  loggedIn: async () => {
+    const token = await APIService.getToken();
+    return !!token && !APIService.isTokenExpired(token);
+  },
+
   getToken: async () => {
     try {
       return await AsyncStorage.getItem('auth_token');

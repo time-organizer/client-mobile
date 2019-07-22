@@ -1,21 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, Text } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 
-class BoardListScreen extends Component {
-  render() {
-    return (
-      <View>
-        <Text>
-          Boards list
-        </Text>
-      </View>
-    );
-  }
-}
+import Loader from '../../components/Loader';
+import AppBar from '../../components/Appbar';
+import BoardListItem from './BoardListItem';
 
-BoardListScreen.propTypes = {};
+const keyExtractor = (item) => item._id;
+
+const BoardListScreen = ({ boards, isFetching }) => (
+  <View>
+    <AppBar
+      title="Boards list"
+    />
+    {isFetching
+      ? <Loader />
+      : (
+        <FlatList
+          data={boards}
+          keyExtractor={keyExtractor}
+          renderItem={({ item }) => (
+            <BoardListItem
+              board={item}
+            />
+          )}
+        />
+      )
+    }
+  </View>
+);
+
+BoardListScreen.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  boards: PropTypes.arrayOf(PropTypes.shape()),
+};
 BoardListScreen.defaultProps = {};
+
+const styles = StyleSheet.create({});
 
 export default BoardListScreen;

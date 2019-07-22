@@ -2,10 +2,15 @@ import React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import {
+  createAppContainer,
+  createStackNavigator,
+  // NavigationActions
+} from 'react-navigation';
 
 import { routes } from './constants/Routes';
 import { colorsVariables } from './constants/Colors';
+// import APIService from './services/APIService';
 
 const theme = {
   ...DefaultTheme,
@@ -22,6 +27,19 @@ export default class App extends React.Component {
     isLoadingComplete: false,
   };
 
+  // componentDidMount() {
+  //   APIService.loggedIn()
+  //     .then((isLoggedIn) => {
+  //       console.log(isLoggedIn);
+  //
+  //       if (isLoggedIn) {
+  //         NavigationActions.navigate({ routeName: 'Boards' })
+  //       } else {
+  //         NavigationActions.navigate({ routeName: 'Login' })
+  //       }
+  //     });
+  // }
+
   render() {
     const stackConfig = {
       headerMode: 'none',
@@ -29,6 +47,7 @@ export default class App extends React.Component {
         headerVisible: false,
       }
     };
+
     const AppNavigator = createAppContainer(createStackNavigator(routes, stackConfig));
 
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
