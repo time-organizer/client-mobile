@@ -3,9 +3,9 @@ import BoardListScreenContainer from '../screens/BoardsListScreen/BoardListScree
 import BoardScreenContainer from '../screens/BoardScreen/BoardScreenContainer';
 
 const routes = {
-  // Login: {
-  //   screen: LoginScreenContainer,
-  // },
+  Login: {
+    screen: LoginScreenContainer,
+  },
   Boards: {
     screen: BoardListScreenContainer
   },

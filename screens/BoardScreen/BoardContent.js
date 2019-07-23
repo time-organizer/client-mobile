@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 
 import Column from './Column';
 
-const BoardContent = ({ board }) => (
+const BoardContent = ({ board, labels }) => (
   <View style={{ flex: 1 }}>
     <ScrollView
       horizontal
       style={{ flex: 1 }}
     >
-      {board.columnsOrder.map(columnId => (
-        <Column
-          key={columnId}
-          column={board.columns[columnId]}
-          tasks={board.tasks}
-        />))
+      {board.columnsOrder.length > 0
+        ? board.columnsOrder.map(columnId => (
+          <Column
+            key={columnId}
+            column={board.columns[columnId]}
+            tasks={board.tasks}
+            labels={labels}
+          />))
+        : (
+          <Text>
+            There are no columns in this board
+          </Text>
+        )
       }
     </ScrollView>
   </View>

@@ -8,7 +8,7 @@ import Loader from '../../components/Loader';
 import AppBar from '../../components/Appbar';
 import BoardContent from './BoardContent';
 
-const BoardScreen = ({ board, isFetching, navigation }) => (
+const BoardScreen = ({ board, isFetching, navigation, labels }) => (
   <View style={{flex: 1}}>
     <AppBar
       title={get(board, 'title', '')}
@@ -16,7 +16,7 @@ const BoardScreen = ({ board, isFetching, navigation }) => (
     />
     {isFetching
       ? <Loader />
-      : !!board && <BoardContent board={board} />
+      : !!board && labels && <BoardContent board={board} labels={labels} />
     }
   </View>
 );

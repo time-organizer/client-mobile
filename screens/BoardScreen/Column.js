@@ -7,7 +7,7 @@ import Task from './Task';
 
 const keyExtractor = (item) => item;
 
-const Column = ({ column, tasks }) => (
+const Column = ({ column, tasks, labels }) => (
   <View style={styles.column}>
     <Text style={styles.columnHeader}>
       {column.title}
@@ -15,7 +15,7 @@ const Column = ({ column, tasks }) => (
     <FlatList
       data={column.tasksOrder}
       keyExtractor={keyExtractor}
-      renderItem={({item}) => <Task task={tasks[item]} />}
+      renderItem={({item}) => <Task task={tasks[item]} labels={labels} />}
     />
   </View>
 );

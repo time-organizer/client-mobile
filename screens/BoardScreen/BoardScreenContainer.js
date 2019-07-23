@@ -6,10 +6,12 @@ class BoardScreenContainer extends Component {
   state = {
     isFetching: false,
     board: null,
+    labels: null,
   };
 
   componentDidMount() {
     this.fetchBoard();
+    this.fetchLabels();
   }
 
   fetchBoard = () => {
@@ -20,7 +22,6 @@ class BoardScreenContainer extends Component {
 
     APIService.get(`/api/boards/${boardId}`)
       .then(response => {
-        console.log(response.data)
         this.setState({
           board: response.data,
           isFetching: false,
@@ -31,15 +32,34 @@ class BoardScreenContainer extends Component {
       });
   };
 
+  fetchLabels = () => {
+    const { navigation } = this.props;
+    const boardId = navigation.getParam('boardId');
+
+    this.setState({ isFetching: true });
+
+    APIService.get(`/api/labels/${boardId}`)
+      .then(response => {
+        this.setState({
+          labels: response.data,
+          isFetching: false,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }
+
   render() {
     const { navigation } = this.props;
-    const { isFetching, board } = this.state;
+    const { isFetching, board, labels } = this.state;
 
     return (
       <BoardScreen
         navigation={navigation}
         isFetching={isFetching}
         board={board}
+        labels={labels}
       />
     );
   }

@@ -5,12 +5,13 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import {
   createAppContainer,
   createStackNavigator,
-  // NavigationActions
+  NavigationActions
 } from 'react-navigation';
 
 import { routes } from './constants/Routes';
 import { colorsVariables } from './constants/Colors';
-// import APIService from './services/APIService';
+import APIService from './services/APIService';
+import Auth from './Auth';
 
 const theme = {
   ...DefaultTheme,
@@ -25,30 +26,26 @@ const theme = {
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    isLoggedIn: false,
+    loginChecking: true,
   };
 
-  // componentDidMount() {
-  //   APIService.loggedIn()
-  //     .then((isLoggedIn) => {
-  //       console.log(isLoggedIn);
-  //
-  //       if (isLoggedIn) {
-  //         NavigationActions.navigate({ routeName: 'Boards' })
-  //       } else {
-  //         NavigationActions.navigate({ routeName: 'Login' })
-  //       }
-  //     });
-  // }
+  componentDidMount() {
+    APIService.loggedIn()
+      .then((isLoggedIn) => {
+        console.log(isLoggedIn);
+        this.setState({ isLoggedIn, loginChecking: false, })
+
+        if (isLoggedIn) {
+          NavigationActions.navigate({ routeName: 'Boards' })
+        } else {
+          NavigationActions.navigate({ routeName: 'Login' })
+        }
+      });
+  }
 
   render() {
-    const stackConfig = {
-      headerMode: 'none',
-      navigationOptions: {
-        headerVisible: false,
-      }
-    };
-
-    const AppNavigator = createAppContainer(createStackNavigator(routes, stackConfig));
+    const { isLoggedIn, loginChecking } = this.state;
 
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -62,7 +59,9 @@ export default class App extends React.Component {
       return (
         <PaperProvider theme={theme}>
           <KeyboardAvoidingView style={styles.container} behavior="padding">
-            <AppNavigator />
+            {!loginChecking && (
+              <Auth isLoggedIn={isLoggedIn} />
+            )}
           </KeyboardAvoidingView>
         </PaperProvider>
       );
