@@ -8,10 +8,11 @@ import Loader from '../../components/Loader';
 import AppBar from '../../components/Appbar';
 import BoardContent from './BoardContent';
 
-const BoardScreen = ({ board, isFetching }) => (
+const BoardScreen = ({ board, isFetching, navigation }) => (
   <View style={{flex: 1}}>
     <AppBar
       title={get(board, 'title', '')}
+      goBack={() => navigation.navigate('Boards')}
     />
     {isFetching
       ? <Loader />

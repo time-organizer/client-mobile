@@ -15,6 +15,7 @@ const BoardContent = ({ board }) => (
         <Column
           key={columnId}
           column={board.columns[columnId]}
+          tasks={board.tasks}
         />))
       }
     </ScrollView>

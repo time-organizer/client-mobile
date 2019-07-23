@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, FlatList } from 'react-native';
 import { colorsVariables } from '../../constants/Colors';
+import Task from './Task';
 
+const keyExtractor = (item) => item;
 
-const Column = ({ column }) => (
+const Column = ({ column, tasks }) => (
   <View style={styles.column}>
     <Text style={styles.columnHeader}>
       {column.title}
     </Text>
+    <FlatList
+      data={column.tasksOrder}
+      keyExtractor={keyExtractor}
+      renderItem={({item}) => <Task task={tasks[item]} />}
+    />
   </View>
 );
 

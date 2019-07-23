@@ -6,6 +6,7 @@ import { colorsVariables } from '../constants/Colors';
 const Loader = () => (
   <View style={styles.loader}>
     <ActivityIndicator
+      size="large"
       animating
       color={colorsVariables.accentColor}
     />
@@ -18,8 +19,8 @@ Loader.defaultProps = {};
 const styles = StyleSheet.create({
   loader: {
     flex: 1,
-    backgroundColor: 'red',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

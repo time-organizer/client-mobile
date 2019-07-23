@@ -32,10 +32,12 @@ class BoardScreenContainer extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const { isFetching, board } = this.state;
 
     return (
       <BoardScreen
+        navigation={navigation}
         isFetching={isFetching}
         board={board}
       />
