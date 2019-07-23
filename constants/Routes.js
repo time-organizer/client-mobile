@@ -1,5 +1,6 @@
 import LoginScreenContainer from '../screens/LoginScreen/LoginScreenContainer';
 import BoardListScreenContainer from '../screens/BoardsListScreen/BoardListScreenContainer';
+import BoardScreenContainer from '../screens/BoardScreen/BoardScreenContainer';
 
 const routes = {
   // Login: {
@@ -7,6 +8,9 @@ const routes = {
   // },
   Boards: {
     screen: BoardListScreenContainer
+  },
+  Board: {
+    screen: BoardScreenContainer,
   }
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 
 import Loader from '../../components/Loader';
 import AppBar from '../../components/Appbar';
@@ -9,7 +9,7 @@ import BoardListItem from './BoardListItem';
 
 const keyExtractor = (item) => item._id;
 
-const BoardListScreen = ({ boards, isFetching }) => (
+const BoardListScreen = ({ boards, isFetching, fetchBoards, navigation }) => (
   <View>
     <AppBar
       title="Boards list"
@@ -20,8 +20,15 @@ const BoardListScreen = ({ boards, isFetching }) => (
         <FlatList
           data={boards}
           keyExtractor={keyExtractor}
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetching}
+              onRefresh={fetchBoards}
+            />
+          }
           renderItem={({ item }) => (
             <BoardListItem
+              navigation={navigation}
               board={item}
             />
           )}

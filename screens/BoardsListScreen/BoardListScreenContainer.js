@@ -6,7 +6,6 @@ class BoardListScreenContainer extends Component {
   state = {
     isFetching: false,
     boardsList: [],
-
   };
 
   componentDidMount() {
@@ -14,10 +13,15 @@ class BoardListScreenContainer extends Component {
   }
 
   fetchBoards = () => {
+    this.setState({ isFetching: true });
+
     APIService.get('/api/boards')
       .then(response => {
         console.log(response.data)
-        this.setState({ boards: response.data })
+        this.setState({
+          boards: response.data,
+          isFetching: false,
+        })
       })
       .catch((error) => {
         console.log(error)
@@ -25,12 +29,15 @@ class BoardListScreenContainer extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const { isFetching, boards } = this.state;
 
     return (
       <BoardListScreen
+        navigation={navigation}
         isFetching={isFetching}
         boards={boards}
+        fetchBoards={this.fetchBoards}
       />
     );
   }

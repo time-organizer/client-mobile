@@ -6,14 +6,14 @@ import find from 'lodash/find';
 import boardThemes from '../../constants/boardThemes';
 
 
-const BoardListItem = ({ board }) => {
+const BoardListItem = ({ board, navigation }) => {
   const boardTheme = find(boardThemes, theme => theme.key === board.theme);
 
   return (
     <View>
       <Card
-        onPress={() => console.log('teses')}
-        style={{ padding: 8, margin: 8 }}
+        onPress={() => navigation.navigate('Board', { boardId: board._id })}
+        style={{ margin: 8 }}
       >
         <Card.Title
           title={board.title}
