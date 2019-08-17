@@ -5,7 +5,6 @@ import find from 'lodash/find';
 
 import boardThemes from '../../constants/boardThemes';
 
-
 const BoardListItem = ({ board, navigation }) => {
   const boardTheme = find(boardThemes, theme => theme.key === board.theme);
 

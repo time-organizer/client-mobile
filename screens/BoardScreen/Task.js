@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
-import Column from './Column';
 import { colorsVariables } from '../../constants/Colors';
 
 const Task = ({ task, labels }) => (

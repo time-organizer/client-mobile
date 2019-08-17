@@ -1,6 +1,5 @@
 import LoginScreen from './LoginScreen';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import APIService from '../../services/APIService';
 
 class LoginScreenContainer extends Component {
